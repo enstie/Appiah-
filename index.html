@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy New Year from APPIAH</title>
+    <title>Happy New Year 2025 - APPIAH</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Poppins:wght@300;400;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -12,228 +13,686 @@
         }
 
         body {
-            font-family: 'Arial', sans-serif;
             overflow: hidden;
-            background: linear-gradient(135deg, #1a0033 0%, #0d001a 50%, #1a0033 100%);
+            font-family: 'Poppins', sans-serif;
+            cursor: none;
+        }
+
+        /* Custom Cursor */
+        .cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 215, 0, 0.8);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 10000;
+            transition: transform 0.2s ease;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+        }
+
+        .cursor.expand {
+            transform: scale(2);
+            background: rgba(255, 215, 0, 0.2);
+        }
+
+        /* Animated Gradient Background */
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, 
+                #0a0a1a 0%, 
+                #1a0a2e 20%, 
+                #16213e 40%, 
+                #0f3460 60%, 
+                #1a0a2e 80%, 
+                #0a0a1a 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            z-index: 1;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        /* Light Beams */
+        .light-beam {
+            position: fixed;
+            width: 100px;
+            height: 100%;
+            background: linear-gradient(to bottom, 
+                transparent, 
+                rgba(255, 215, 0, 0.1) 50%, 
+                transparent);
+            opacity: 0;
+            animation: beamSweep 8s ease-in-out infinite;
+            z-index: 2;
+            transform-origin: top;
+            filter: blur(10px);
+        }
+
+        .light-beam:nth-child(1) { left: 10%; animation-delay: 0s; }
+        .light-beam:nth-child(2) { left: 30%; animation-delay: 2s; }
+        .light-beam:nth-child(3) { left: 50%; animation-delay: 4s; }
+        .light-beam:nth-child(4) { left: 70%; animation-delay: 6s; }
+        .light-beam:nth-child(5) { left: 90%; animation-delay: 1s; }
+
+        @keyframes beamSweep {
+            0%, 100% { opacity: 0; transform: translateY(-100%) rotate(-10deg); }
+            50% { opacity: 0.3; transform: translateY(0) rotate(10deg); }
+        }
+
+        /* Particle System */
+        .particle-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 3;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: radial-gradient(circle, #ffd700, #ffed4e);
+            border-radius: 50%;
+            box-shadow: 0 0 10px #ffd700, 0 0 20px #ffd700, 0 0 30px #ffd700;
+            animation: float linear infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% {
+                transform: translateY(-100vh) translateX(var(--drift)) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Sparkles */
+        .sparkle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: white;
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            animation: sparkleAnim linear infinite;
+            z-index: 4;
+        }
+
+        @keyframes sparkleAnim {
+            0% {
+                transform: scale(0) rotate(0deg);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.5) rotate(180deg);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(0) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Confetti */
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            animation: confettiFall linear infinite;
+            z-index: 4;
+        }
+
+        @keyframes confettiFall {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0.3;
+            }
+        }
+
+        /* Main Container */
+        .container {
+            position: relative;
+            width: 100%;
             height: 100vh;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
+            z-index: 5;
         }
 
-        .container {
+        /* 3D Text Effects */
+        .title-3d {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 8rem;
+            font-weight: 900;
             text-align: center;
-            z-index: 10;
+            color: #ffd700;
+            text-transform: uppercase;
+            letter-spacing: 15px;
             position: relative;
+            animation: titleFloat 3s ease-in-out infinite;
+            text-shadow: 
+                0 1px 0 #ccc,
+                0 2px 0 #c9c9c9,
+                0 3px 0 #bbb,
+                0 4px 0 #b9b9b9,
+                0 5px 0 #aaa,
+                0 6px 1px rgba(0,0,0,.1),
+                0 0 5px rgba(255,215,0,.1),
+                0 1px 3px rgba(255,215,0,.3),
+                0 3px 5px rgba(255,215,0,.2),
+                0 5px 10px rgba(255,215,0,.25),
+                0 10px 20px rgba(255,215,0,.2),
+                0 20px 40px rgba(255,215,0,.15),
+                0 0 60px rgba(255,215,0,0.5),
+                0 0 100px rgba(255,215,0,0.3);
+            filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.8));
         }
 
-        h1 {
-            font-size: 5rem;
-            background: linear-gradient(45deg, #ffd700, #ffed4e, #ffd700);
+        @keyframes titleFloat {
+            0%, 100% { transform: translateY(-10px) scale(1); }
+            50% { transform: translateY(10px) scale(1.05); }
+        }
+
+        .year-display {
+            font-family: 'Playfair Display', serif;
+            font-size: 15rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, #ffd700, #ffed4e, #ffd700, #ffed4e);
+            background-size: 300% 300%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            animation: glow 2s ease-in-out infinite;
-            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
-            margin-bottom: 20px;
-            font-weight: bold;
+            animation: yearGlow 3s ease infinite, yearPulse 2s ease-in-out infinite;
+            text-shadow: 0 0 80px rgba(255, 215, 0, 0.8);
+            filter: drop-shadow(0 0 30px #ffd700) drop-shadow(0 0 60px #ffd700);
+            position: relative;
+            margin: 30px 0;
         }
 
-        h2 {
-            font-size: 3rem;
+        @keyframes yearGlow {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        @keyframes yearPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .subtitle {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 300;
             color: #fff;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
-            animation: fadeIn 2s ease-in;
-        }
-
-        .from {
-            font-size: 2rem;
-            color: #c0c0c0;
+            text-align: center;
             margin-top: 20px;
-            animation: slideUp 1.5s ease-out;
+            letter-spacing: 8px;
+            opacity: 0;
+            animation: fadeInUp 2s ease forwards 1s;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
         }
 
-        @keyframes glow {
-            0%, 100% {
-                filter: brightness(1);
-            }
-            50% {
-                filter: brightness(1.3);
-            }
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: scale(0.5);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(50px);
-            }
+        @keyframes fadeInUp {
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
         }
 
-        #fireworks {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
+        /* Countdown Timer */
+        .countdown {
+            display: flex;
+            gap: 40px;
+            margin-top: 60px;
+            opacity: 0;
+            animation: fadeInUp 2s ease forwards 1.5s;
         }
 
-        .stars {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
+        .countdown-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 30px;
+            background: rgba(255, 215, 0, 0.1);
+            border-radius: 15px;
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.2);
+            transition: transform 0.3s ease;
         }
 
-        .star {
+        .countdown-item:hover {
+            transform: scale(1.1) translateY(-10px);
+            box-shadow: 0 0 50px rgba(255, 215, 0, 0.4);
+        }
+
+        .countdown-value {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4rem;
+            font-weight: 700;
+            color: #ffd700;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+        }
+
+        .countdown-label {
+            font-size: 1.2rem;
+            color: #fff;
+            margin-top: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Musical Notes */
+        .music-note {
             position: absolute;
-            background: white;
+            font-size: 3rem;
+            opacity: 0;
+            animation: musicFloat 4s ease-in-out infinite;
+            z-index: 4;
+            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.8));
+        }
+
+        @keyframes musicFloat {
+            0% {
+                opacity: 0;
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                opacity: 1;
+                transform: translateY(-100px) rotate(180deg);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-200px) rotate(360deg);
+            }
+        }
+
+        /* Fireworks */
+        .firework {
+            position: absolute;
+            width: 4px;
+            height: 4px;
             border-radius: 50%;
-            animation: twinkle 3s infinite;
+            z-index: 3;
         }
 
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 1; }
+        .firework::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: inherit;
+            border-radius: 50%;
+            animation: fireworkTrail 1.5s ease-out infinite;
         }
 
+        @keyframes fireworkTrail {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(0);
+                opacity: 0;
+            }
+        }
+
+        /* Message from APPIAH */
+        .message {
+            position: absolute;
+            bottom: 80px;
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: #ffd700;
+            text-align: center;
+            opacity: 0;
+            animation: fadeInUp 2s ease forwards 2s;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+            letter-spacing: 3px;
+        }
+
+        .signature {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            color: #fff;
+            margin-top: 15px;
+            font-weight: 300;
+            letter-spacing: 5px;
+        }
+
+        /* Celebration Icons */
+        .celebration-icon {
+            position: absolute;
+            font-size: 4rem;
+            animation: celebrationBounce 2s ease-in-out infinite;
+            z-index: 4;
+            filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.8));
+        }
+
+        @keyframes celebrationBounce {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-30px) scale(1.2); }
+        }
+
+        /* Responsive Design */
         @media (max-width: 768px) {
-            h1 {
+            .title-3d {
                 font-size: 3rem;
+                letter-spacing: 5px;
             }
-            h2 {
-                font-size: 2rem;
+            .year-display {
+                font-size: 7rem;
             }
-            .from {
+            .subtitle {
                 font-size: 1.5rem;
+                letter-spacing: 3px;
             }
-        }
-
-        @media (max-width: 480px) {
-            h1 {
+            .countdown {
+                flex-wrap: wrap;
+                gap: 20px;
+            }
+            .countdown-value {
                 font-size: 2.5rem;
             }
-            h2 {
-                font-size: 1.5rem;
+            .countdown-label {
+                font-size: 0.9rem;
             }
-            .from {
-                font-size: 1.2rem;
+            .message {
+                font-size: 1.3rem;
+                bottom: 40px;
+                padding: 0 20px;
+            }
+            .signature {
+                font-size: 1.1rem;
             }
         }
     </style>
 </head>
 <body>
-    <div class="stars" id="stars"></div>
-    <canvas id="fireworks"></canvas>
-    
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+
+    <!-- Animated Background -->
+    <div class="background"></div>
+
+    <!-- Light Beams -->
+    <div class="light-beam"></div>
+    <div class="light-beam"></div>
+    <div class="light-beam"></div>
+    <div class="light-beam"></div>
+    <div class="light-beam"></div>
+
+    <!-- Particle Container -->
+    <div class="particle-container" id="particles"></div>
+
+    <!-- Main Container -->
     <div class="container">
-        <h1>HAPPY NEW YEAR</h1>
-        <h2>2026</h2>
-        <p class="from">from APPIAH</p>
+        <div class="title-3d">Happy New Year</div>
+        <div class="year-display">2025</div>
+        <div class="subtitle">Wishing You Joy & Prosperity</div>
+        
+        <!-- Countdown Timer -->
+        <div class="countdown" id="countdown">
+            <div class="countdown-item">
+                <div class="countdown-value" id="days">00</div>
+                <div class="countdown-label">Days</div>
+            </div>
+            <div class="countdown-item">
+                <div class="countdown-value" id="hours">00</div>
+                <div class="countdown-label">Hours</div>
+            </div>
+            <div class="countdown-item">
+                <div class="countdown-value" id="minutes">00</div>
+                <div class="countdown-label">Minutes</div>
+            </div>
+            <div class="countdown-item">
+                <div class="countdown-value" id="seconds">00</div>
+                <div class="countdown-label">Seconds</div>
+            </div>
+        </div>
+
+        <!-- Message -->
+        <div class="message">
+            May this year bring you endless opportunities!
+            <div class="signature">~ APPIAH ~</div>
+        </div>
     </div>
 
     <script>
-        const starsContainer = document.getElementById('stars');
-        for (let i = 0; i < 100; i++) {
-            const star = document.createElement('div');
-            star.className = 'star';
-            star.style.width = Math.random() * 3 + 'px';
-            star.style.height = star.style.width;
-            star.style.left = Math.random() * 100 + '%';
-            star.style.top = Math.random() * 100 + '%';
-            star.style.animationDelay = Math.random() * 3 + 's';
-            starsContainer.appendChild(star);
+        // Custom Cursor
+        const cursor = document.querySelector('.cursor');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        document.addEventListener('mousedown', () => cursor.classList.add('expand'));
+        document.addEventListener('mouseup', () => cursor.classList.remove('expand'));
+
+        // Particle System
+        const particleContainer = document.getElementById('particles');
+        const particleCount = 50;
+
+        for (let i = 0; i < particleCount; i++) {
+            createParticle();
         }
 
-        const canvas = document.getElementById('fireworks');
-        const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        class Particle {
-            constructor(x, y, color) {
-                this.x = x;
-                this.y = y;
-                this.color = color;
-                this.velocity = {
-                    x: (Math.random() - 0.5) * 8,
-                    y: (Math.random() - 0.5) * 8
-                };
-                this.alpha = 1;
-                this.decay = Math.random() * 0.02 + 0.015;
-            }
-
-            draw() {
-                ctx.save();
-                ctx.globalAlpha = this.alpha;
-                ctx.fillStyle = this.color;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, 3, 0, Math.PI * 2);
-                ctx.fill();
-                ctx.restore();
-            }
-
-            update() {
-                this.velocity.y += 0.1;
-                this.x += this.velocity.x;
-                this.y += this.velocity.y;
-                this.alpha -= this.decay;
-            }
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+            particle.style.animationDelay = Math.random() * 5 + 's';
+            particle.style.setProperty('--drift', (Math.random() * 200 - 100) + 'px');
+            particleContainer.appendChild(particle);
         }
 
-        let particles = [];
-        const colors = ['#ffd700', '#ff6b6b', '#4ecdc4', '#45b7d1', '#f7b731', '#5f27cd', '#ff9ff3'];
+        // Sparkles
+        setInterval(() => {
+            const sparkle = document.createElement('div');
+            sparkle.classList.add('sparkle');
+            sparkle.style.left = Math.random() * 100 + '%';
+            sparkle.style.top = Math.random() * 100 + '%';
+            sparkle.style.animationDuration = (Math.random() * 2 + 1) + 's';
+            particleContainer.appendChild(sparkle);
+            
+            setTimeout(() => sparkle.remove(), 3000);
+        }, 200);
 
+        // Confetti
+        const confettiColors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff', '#ffd700', '#ff69b4'];
+        
+        setInterval(() => {
+            const confetti = document.createElement('div');
+            confetti.classList.add('confetti');
+            confetti.style.left = Math.random() * 100 + '%';
+            confetti.style.backgroundColor = confettiColors[Math.floor(Math.random() * confettiColors.length)];
+            confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            confetti.style.animationDelay = Math.random() + 's';
+            particleContainer.appendChild(confetti);
+            
+            setTimeout(() => confetti.remove(), 6000);
+        }, 100);
+
+        // Musical Notes
+        const musicNotes = ['🎵', '🎶', '🎼', '🎤', '🎧'];
+        
+        setInterval(() => {
+            const note = document.createElement('div');
+            note.classList.add('music-note');
+            note.textContent = musicNotes[Math.floor(Math.random() * musicNotes.length)];
+            note.style.left = Math.random() * 100 + '%';
+            note.style.top = Math.random() * 80 + 10 + '%';
+            note.style.animationDelay = Math.random() + 's';
+            document.body.appendChild(note);
+            
+            setTimeout(() => note.remove(), 4000);
+        }, 2000);
+
+        // Celebration Icons
+        const celebrationIcons = ['🎉', '🎊', '✨', '🌟', '💫', '🎆', '🎇', '🥳'];
+        
+        celebrationIcons.forEach((icon, index) => {
+            const iconElement = document.createElement('div');
+            iconElement.classList.add('celebration-icon');
+            iconElement.textContent = icon;
+            iconElement.style.left = (index * 12 + 5) + '%';
+            iconElement.style.top = Math.random() * 30 + 10 + '%';
+            iconElement.style.animationDelay = (index * 0.2) + 's';
+            document.body.appendChild(iconElement);
+        });
+
+        // Enhanced Fireworks
         function createFirework() {
-            const x = Math.random() * canvas.width;
-            const y = Math.random() * canvas.height * 0.6;
+            const firework = document.createElement('div');
+            firework.classList.add('firework');
+            
+            const x = Math.random() * window.innerWidth;
+            const y = Math.random() * window.innerHeight * 0.7;
+            
+            const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff', '#ffd700'];
             const color = colors[Math.floor(Math.random() * colors.length)];
             
-            for (let i = 0; i < 50; i++) {
-                particles.push(new Particle(x, y, color));
+            firework.style.left = x + 'px';
+            firework.style.top = y + 'px';
+            firework.style.background = color;
+            firework.style.boxShadow = `0 0 20px ${color}, 0 0 40px ${color}, 0 0 60px ${color}`;
+            
+            document.body.appendChild(firework);
+            
+            // Create explosion particles
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.style.position = 'absolute';
+                particle.style.width = '3px';
+                particle.style.height = '3px';
+                particle.style.borderRadius = '50%';
+                particle.style.background = color;
+                particle.style.boxShadow = `0 0 10px ${color}`;
+                particle.style.left = x + 'px';
+                particle.style.top = y + 'px';
+                particle.style.zIndex = '3';
+                
+                const angle = (Math.PI * 2 * i) / 30;
+                const velocity = Math.random() * 5 + 3;
+                const vx = Math.cos(angle) * velocity;
+                const vy = Math.sin(angle) * velocity;
+                
+                document.body.appendChild(particle);
+                
+                let posX = x;
+                let posY = y;
+                let opacity = 1;
+                
+                const animateParticle = () => {
+                    posX += vx;
+                    posY += vy;
+                    opacity -= 0.02;
+                    
+                    particle.style.left = posX + 'px';
+                    particle.style.top = posY + 'px';
+                    particle.style.opacity = opacity;
+                    
+                    if (opacity > 0) {
+                        requestAnimationFrame(animateParticle);
+                    } else {
+                        particle.remove();
+                    }
+                };
+                
+                animateParticle();
             }
+            
+            setTimeout(() => firework.remove(), 2000);
         }
 
-        function animate() {
-            ctx.fillStyle = 'rgba(26, 0, 51, 0.1)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        setInterval(createFirework, 800);
 
-            particles.forEach((particle, index) => {
-                particle.update();
-                particle.draw();
+        // Countdown Timer
+        function updateCountdown() {
+            const newYear = new Date('January 1, 2025 00:00:00').getTime();
+            const now = new Date().getTime();
+            const distance = newYear - now;
+
+            if (distance < 0) {
+                // New Year has arrived - show midnight celebration
+                document.getElementById('days').textContent = '00';
+                document.getElementById('hours').textContent = '00';
+                document.getElementById('minutes').textContent = '00';
+                document.getElementById('seconds').textContent = '00';
                 
-                if (particle.alpha <= 0) {
-                    particles.splice(index, 1);
+                // Trigger massive firework display
+                for (let i = 0; i < 20; i++) {
+                    setTimeout(createFirework, i * 100);
+                }
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById('days').textContent = String(days).padStart(2, '0');
+            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+            document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+        }
+
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+
+        // Interactive hover effects
+        const countdownItems = document.querySelectorAll('.countdown-item');
+        countdownItems.forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                for (let i = 0; i < 5; i++) {
+                    setTimeout(() => createFirework(), i * 50);
                 }
             });
+        });
 
-            requestAnimationFrame(animate);
-        }
+        // Click to create fireworks
+        document.addEventListener('click', (e) => {
+            for (let i = 0; i < 3; i++) {
+                setTimeout(createFirework, i * 100);
+            }
+        });
 
-        setInterval(createFirework, 400);
-        animate();
-
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+        // Stagger animations on load
+        window.addEventListener('load', () => {
+            const elements = document.querySelectorAll('.title-3d, .year-display, .subtitle, .countdown-item');
+            elements.forEach((el, index) => {
+                el.style.opacity = '0';
+                setTimeout(() => {
+                    el.style.transition = 'opacity 1s ease, transform 1s ease';
+                    el.style.opacity = '1';
+                }, index * 200);
+            });
         });
     </script>
 </body>
