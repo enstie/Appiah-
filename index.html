@@ -14,11 +14,18 @@
         body {
             font-family: 'Arial', sans-serif;
             overflow: hidden;
-            background: linear-gradient(135deg, #1a0033 0%, #0d001a 50%, #1a0033 100%);
+            background: #4AACB5;
+            background-image: 
+                repeating-linear-gradient(90deg, 
+                    transparent 0px, 
+                    transparent 30px, 
+                    rgba(255, 255, 255, 0.1) 30px, 
+                    rgba(255, 255, 255, 0.1) 35px);
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
+            position: relative;
         }
 
         .container {
@@ -28,55 +35,35 @@
         }
 
         h1 {
-            font-size: 5rem;
-            background: linear-gradient(45deg, #ffd700, #ffed4e, #ffd700);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: glow 2s ease-in-out infinite;
-            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
-            margin-bottom: 20px;
-            font-weight: bold;
+            font-size: 6rem;
+            color: #FFD166;
+            font-weight: 900;
+            margin-bottom: 10px;
+            text-shadow: 3px 3px 0px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 1.5s ease-in;
+            letter-spacing: -2px;
         }
 
         h2 {
-            font-size: 3rem;
-            color: #fff;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+            font-size: 2.5rem;
+            color: #FFFFFF;
+            font-weight: 300;
             animation: fadeIn 2s ease-in;
+            margin-top: 10px;
         }
 
-        . from {
+        .from {
             font-size: 2rem;
-            color: #c0c0c0;
+            color: #FFFFFF;
             margin-top: 20px;
             animation: slideUp 1.5s ease-out;
-        }
-
-        @keyframes glow {
-            0%, 100% {
-                filter: brightness(1);
-            }
-            50% {
-                filter: brightness(1.3);
-            }
+            font-weight: 300;
         }
 
         @keyframes fadeIn {
             from {
                 opacity: 0;
-                transform: scale(0.5);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(50px);
+                transform: translateY(-20px);
             }
             to {
                 opacity: 1;
@@ -84,164 +71,177 @@
             }
         }
 
-        /* Fireworks Canvas */
-        #fireworks {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width:  100%;
-            height: 100%;
-            pointer-events:  none;
-            z-index:  1;
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
-        /* Stars Background */
-        .stars {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+        /* Ornaments */
+        .ornament {
+            position: absolute;
+            border-radius: 50%;
+            animation: swing 3s ease-in-out infinite;
+        }
+
+        .ornament::before {
+            content: '';
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 30px;
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        @keyframes swing {
+            0%, 100% {
+                transform: rotate(-3deg);
+            }
+            50% {
+                transform: rotate(3deg);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        /* Snowflakes */
+        .snowflake {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.5rem;
+            animation: fall linear infinite;
             pointer-events: none;
         }
 
-        .star {
-            position: absolute;
-            background: white;
-            border-radius: 50%;
-            animation: twinkle 3s infinite;
-        }
-
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 1; }
+        @keyframes fall {
+            0% {
+                transform: translateY(-10vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(110vh) rotate(360deg);
+                opacity: 0.3;
+            }
         }
 
         /* Responsive */
         @media (max-width: 768px) {
             h1 {
-                font-size: 3rem;
+                font-size: 4rem;
             }
             h2 {
                 font-size: 2rem;
             }
-            . from {
-                font-size:  1.5rem;
+            .from {
+                font-size: 1.5rem;
+            }
+            .ornament {
+                transform: scale(0.7);
             }
         }
 
         @media (max-width: 480px) {
             h1 {
-                font-size: 2.5rem;
+                font-size: 3rem;
+                letter-spacing: -1px;
             }
             h2 {
                 font-size: 1.5rem;
             }
-            . from {
-                font-size:  1.2rem;
+            .from {
+                font-size: 1.2rem;
+            }
+            .ornament {
+                transform: scale(0.5);
             }
         }
     </style>
 </head>
 <body>
-    <div class="stars" id="stars"></div>
-    <canvas id="fireworks"></canvas>
+    <div id="ornaments"></div>
+    <div id="snowflakes"></div>
     
     <div class="container">
-        <h1>HAPPY NEW YEAR</h1>
-        <h2>2026</h2>
+        <h1>2026</h1>
+        <h2>HAPPY NEW YEAR</h2>
         <p class="from">from APPIAH</p>
     </div>
 
     <script>
-        // Create twinkling stars
-        const starsContainer = document.getElementById('stars');
-        for (let i = 0; i < 100; i++) {
-            const star = document.createElement('div');
-            star.className = 'star';
-            star.style.width = Math.random() * 3 + 'px';
-            star.style.height = star.style.width;
-            star.style.left = Math.random() * 100 + '%';
-            star. style.top = Math.random() * 100 + '%';
-            star. style.animationDelay = Math.random() * 3 + 's';
-            starsContainer.appendChild(star);
-        }
-
-        // Fireworks Animation
-        const canvas = document.getElementById('fireworks');
-        const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
-        canvas. height = window.innerHeight;
-
-        class Particle {
-            constructor(x, y, color) {
-                this.x = x;
-                this.y = y;
-                this.color = color;
-                this.velocity = {
-                    x: (Math.random() - 0.5) * 8,
-                    y: (Math.random() - 0.5) * 8
-                };
-                this.alpha = 1;
-                this. decay = Math.random() * 0.02 + 0.015;
-            }
-
-            draw() {
-                ctx.save();
-                ctx.globalAlpha = this.alpha;
-                ctx. fillStyle = this.color;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, 3, 0, Math.PI * 2);
-                ctx.fill();
-                ctx. restore();
-            }
-
-            update() {
-                this.velocity.y += 0.1;
-                this.x += this.velocity.x;
-                this.y += this.velocity.y;
-                this.alpha -= this.decay;
-            }
-        }
-
-        let particles = [];
-        const colors = ['#ffd700', '#ff6b6b', '#4ecdc4', '#45b7d1', '#f7b731', '#5f27cd', '#ff9ff3'];
-
-        function createFirework() {
-            const x = Math.random() * canvas.width;
-            const y = Math.random() * canvas.height * 0.6;
-            const color = colors[Math.floor(Math.random() * colors.length)];
+        // Create hanging ornaments
+        const ornamentsContainer = document.getElementById('ornaments');
+        const ornamentConfigs = [
+            // Large ornaments
+            { size: 80, color: '#FF6B9D', pattern: 'striped', top: 10, left: 15 },
+            { size: 100, color: '#FFD166', pattern: 'dotted', top: 5, left: 85 },
+            { size: 90, color: '#FFFFFF', pattern: 'solid', top: 15, left: 50 },
             
-            for (let i = 0; i < 50; i++) {
-                particles. push(new Particle(x, y, color));
+            // Medium ornaments
+            { size: 60, color: '#FF6B9D', pattern: 'solid', top: 20, left: 25 },
+            { size: 70, color: '#FFD166', pattern: 'striped', top: 25, left: 75 },
+            { size: 65, color: '#FFFFFF', pattern: 'dotted', top: 8, left: 40 },
+            { size: 65, color: '#FF6B9D', pattern: 'dotted', top: 18, left: 65 },
+            
+            // Small ornaments
+            { size: 45, color: '#FFFFFF', pattern: 'striped', top: 30, left: 10 },
+            { size: 50, color: '#FFD166', pattern: 'solid', top: 35, left: 90 },
+            { size: 40, color: '#FF6B9D', pattern: 'striped', top: 12, left: 30 },
+            { size: 48, color: '#FFFFFF', pattern: 'solid', top: 28, left: 60 },
+            { size: 42, color: '#FFD166', pattern: 'dotted', top: 22, left: 80 }
+        ];
+
+        ornamentConfigs.forEach((config, index) => {
+            const ornament = document.createElement('div');
+            ornament.className = 'ornament';
+            ornament.style.width = config.size + 'px';
+            ornament.style.height = config.size + 'px';
+            ornament.style.top = config.top + '%';
+            ornament.style.left = config.left + '%';
+            ornament.style.animationDelay = (index * 0.2) + 's';
+            
+            // Apply pattern
+            if (config.pattern === 'striped') {
+                ornament.style.background = `repeating-linear-gradient(45deg, ${config.color}, ${config.color} 5px, rgba(255,255,255,0.3) 5px, rgba(255,255,255,0.3) 10px)`;
+            } else if (config.pattern === 'dotted') {
+                ornament.style.background = config.color;
+                ornament.style.backgroundImage = 'radial-gradient(circle, rgba(255,255,255,0.4) 15%, transparent 15%)';
+                ornament.style.backgroundSize = '15px 15px';
+            } else {
+                ornament.style.background = config.color;
             }
-        }
-
-        function animate() {
-            ctx.fillStyle = 'rgba(26, 0, 51, 0.1)';
-            ctx.fillRect(0, 0, canvas. width, canvas.height);
-
-            particles.forEach((particle, index) => {
-                particle.update();
-                particle. draw();
-                
-                if (particle.alpha <= 0) {
-                    particles.splice(index, 1);
-                }
-            });
-
-            requestAnimationFrame(animate);
-        }
-
-        // Create fireworks periodically
-        setInterval(createFirework, 400);
-        animate();
-
-        // Resize canvas on window resize
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window. innerHeight;
+            
+            ornament.style.boxShadow = '0 5px 15px rgba(0,0,0,0.2)';
+            ornamentsContainer.appendChild(ornament);
         });
+
+        // Create snowflakes
+        const snowflakesContainer = document.getElementById('snowflakes');
+        const snowflakeSymbols = ['❄', '❅', '❆'];
+        
+        for (let i = 0; i < 30; i++) {
+            const snowflake = document.createElement('div');
+            snowflake.className = 'snowflake';
+            snowflake.textContent = snowflakeSymbols[Math.floor(Math.random() * snowflakeSymbols.length)];
+            snowflake.style.left = Math.random() * 100 + '%';
+            snowflake.style.animationDuration = (Math.random() * 10 + 10) + 's';
+            snowflake.style.animationDelay = Math.random() * 10 + 's';
+            snowflake.style.fontSize = (Math.random() * 1 + 0.5) + 'rem';
+            snowflakesContainer.appendChild(snowflake);
+        }
     </script>
 </body>
 </html>
